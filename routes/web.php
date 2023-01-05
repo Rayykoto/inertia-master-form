@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,7 +26,10 @@ Route::prefix('apps')->group(function() {
     Route::group(['middleware' => ['auth', 'verified']], function () {
 
         //route dashboard
-        Route::get('dashboard', App\Http\Controllers\Apps\DashboardController::class)->name('apps.dashboard');
+        Route::get('dashboard', \App\Http\Controllers\Apps\DashboardController::class)->name('apps.dashboard');
+
+        Route::resource('/roles', \App\Http\Controllers\Apps\RoleController::class, ['as' => 'apps'])
+            ->middleware('permission:roles.index|roles.create|roles.edit|roles.edit|roles.delete');
     
     });
 });
