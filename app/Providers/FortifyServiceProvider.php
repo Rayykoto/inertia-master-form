@@ -55,5 +55,10 @@ class FortifyServiceProvider extends ServiceProvider
         Fortify::verifyEmailView(function () {
             return Inertia::render('Auth/VerifyEmail');
         });
+
+         /**
+         * logout
+         */
+        $this->app->singleton(\Laravel\Fortify\Contracts\LogoutResponse::class,\App\Http\Responses\LogoutResponse::class);
     }
 }

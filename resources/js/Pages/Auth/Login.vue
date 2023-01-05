@@ -46,9 +46,6 @@
                                 {{ errors.password }}
                             </div>
                             <div class="row">
-                                <div class="col-12 mb-3 text-end">
-                                    <Link href="/forgot-password">Forgot Password?</Link>
-                                </div>
                                 <div class="col-12">
                                     <button class="btn btn-primary shadow-sm rounded-sm px-4 w-100" type="submit">LOGIN</button>
                                 </div>
