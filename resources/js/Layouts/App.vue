@@ -23,7 +23,7 @@
           <!-- end content -->
   
           <footer class="c-footer">
-            <div><strong>APLIKASI FORM MASTER</strong> &copy; 2022 - Koto.com.</div>
+            <div><strong>APLIKASI FORM MASTER</strong> &copy; 2023 - Koto.com</div>
           </footer>
         </div>
       </div>
