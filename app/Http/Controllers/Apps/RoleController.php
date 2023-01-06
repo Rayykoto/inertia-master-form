@@ -43,4 +43,30 @@ class RoleController extends Controller
 
         return redirect()->route('apps.roles.index');
     }
+
+    public function edit($id) 
+    {
+        $role = Role::with('permissions')->findOrFail($id);
+
+        $permissions = Permission::all();
+
+        return inertia('Apps/Roles/Edit', [
+            'role'          => $role,
+            'permissions'   => $permissions
+        ]);
+    }
+
+    public function update(Request $request, Role $role)
+    {
+        $this->validate($request, [
+            'name'          => 'required',
+            'permissions'   => 'required',
+        ]);
+
+        $role->update(['name' => $request->name]);
+
+        $role->syncPermissions($request->permissions);
+
+        return redirect()->route('apps.roles.index');
+    }
 }
