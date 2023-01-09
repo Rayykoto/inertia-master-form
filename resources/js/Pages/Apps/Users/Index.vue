@@ -31,8 +31,8 @@
                                     <tr v-for="(user, index) in users.data" :key="index">
                                         <td>{{ user.name }}</td>
                                             <td>
-                                                <span v-for="(permission, index) in user.permissions" :key="index" class="badge badge-primary shadow border-0 ms-2 mb-2">
-                                                    {{ permission.name }}
+                                                <span v-for="(role, index) in user.roles" :key="index" class="badge badge-primary shadow border-0 ms-2 mb-2">
+                                                    {{ role.name }}
                                                 </span>
                                             </td>
                                             <td class="text-center">
