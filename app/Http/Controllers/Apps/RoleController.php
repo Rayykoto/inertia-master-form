@@ -69,4 +69,13 @@ class RoleController extends Controller
 
         return redirect()->route('apps.roles.index');
     }
+
+    public function destroy($id)
+    {
+        $role = Role::findOrFail($id);
+
+        $role->delete();
+
+        return redirect()->route('apps.roles.index');
+    }
 }
