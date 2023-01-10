@@ -23,7 +23,7 @@ Route::get('/', function () {
 Route::prefix('apps')->group(function() {
 
     //middleware "auth"
-    Route::group(['middleware' => ['auth', 'verified']], function () {
+    Route::group(['middleware' => ['auth']], function () {
 
         //route dashboard
         Route::get('dashboard', \App\Http\Controllers\Apps\DashboardController::class)->name('apps.dashboard');
