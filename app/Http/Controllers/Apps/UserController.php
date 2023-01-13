@@ -6,17 +6,22 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
+
+    // public function __construct()
+    // {
+    //     $this->middleware(['role_or_permission:users.index']);
+    // }
     //
     public function index() 
     {
         $users = User::when(request()->q, function($users) {
             $users = $users->where('name', 'like', '%' . request()->q . '%');
         })->with('roles')->latest()->paginate(5);
-
         return Inertia::render('Apps/Users/Index', [
             'users' => $users
         ]);

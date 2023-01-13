@@ -33,5 +33,7 @@ Route::prefix('apps')->group(function() {
         
         Route::resource('/users', \App\Http\Controllers\Apps\UserController::class, ['as' => 'apps'])
             ->middleware('permission:users.index|users.create|users.edit|roles.delete');
+
+        Route::resource('/forms', \App\Http\Controllers\Apps\FormController::class, ['as' => 'apps']);
     });
 });
