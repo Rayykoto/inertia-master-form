@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Apps;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Spatie\Permission\Models\Permission;
@@ -12,12 +13,32 @@ class RoleController extends Controller
 {
     public function index()
     {
+        if(auth()){
+            $user_id = auth()->user()->id;
+        }
+        $a = '';
+        $user = User::where('id',$user_id)->first();
+        // $sides = Role::where('name', $user->getRoleNames())->when(request()->q, function($sides) {
+        //     $sides = $sides->where('name', 'like', '%index%');
+        // })->with('permissions') ->latest()->get();
+        $permissions = $user->getPermissionsViaRoles();
+        for ($j = 0; $j < $permissions->count(); $j++){
+            if(str_contains($permissions[$j]['name'], 'index')){
+                $a .= $permissions[$j]['name'].', ';
+            }
+        }
         $roles = Role::when(request()->q, function($roles) {
             $roles = $roles->where('name', 'like', '%' . request()->q . '%');
         })->with('permissions')->latest()->paginate(5);
 
-        return Inertia('Apps/Roles/Index', [
-            'roles' => $roles,
+        // dd($a);
+        if(str_contains($a, 'roles.index')){
+            return Inertia('Apps/Roles/Index', [
+                'roles' => $roles,
+            ]);
+        }
+
+        return Inertia::render('Apps/Forbidden', [
         ]);
     }
 

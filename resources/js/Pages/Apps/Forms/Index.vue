@@ -1,89 +1,48 @@
 <template>
     <Head>
-        <title>FORMS - Master Form</title>
+        <title>FORMS - Master Forms</title>
     </Head>
     <main class="c-main">
         <div class="container-fluid">
+            <div class="input-group mb-3">
+                <Link href="/apps/master/forms/create" class="btn btn-primary input-group-text"> <i class="fa fa-plus-circle me-2"></i> NEW</Link>
+            </div>
             <div class="row">
-                <div class="col-md-12">
-                    <div class="card border-0 rounded-3 shadow border-top-purple">
-                        <div class="card-header">
-                            <span class="font-weight-bold"><i class="fa fa-form"></i> Master Forms</span>
-                        </div>
-                        <div class="card-body">
-                            <form>
-                                <div class="input-group mb-3">
-                                    <Link href="/apps/forms/create" class="btn btn-primary input-group-text"> <i class="fa fa-plus-circle me-2"></i> NEW</Link>
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="card border-0 rounded-3 shadow border-top-purple">
-                                            <div class="card-header">
-                                                <span class="font-weight-bold"><i class="fa fa-chart-bar"></i> DIVISION</span>
-                                            </div>
-                                            <div class="card-body">
-                                                <form @submit.prevent="filter">
-                                                    <div class="row">
-                                                        <div class="col-md-10">
-                                                            <div class="mb-3">
-                                                                <label class="form-label fw-bold">DIVISION</label>
-                                                                <select class="form-control">
-                                                                    <option value="">-- Select Division --</option>
-                                                                    <option>Support</option>
-                                                                    <option>Marketing</option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-2">
-                                                            <div class="mb-3">
-                                                                <label class="form-label fw-bold text-white">*</label>
-                                                                <button class="btn btn-md btn-purple border-0 shadow w-100"><i class="fa fa-filter"></i> FILTER</button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- <div class="col-md-12">
-                                    <div class="form-group">
-                                    <label class="font-weight-bold">DIVISION</label>
-                                    <select class="form-control">
-                                        <option value="">-- Select Division --</option>
-                                        <option>Support</option>
-                                        <option>Marketing</option>
-                                    </select>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                    <label class="font-weight-bold">FORMS</label>
-                                    <select class="form-control">
-                                        <option value="">-- Select Forms --</option>
-                                        <option>Forms Cuti</option>
-                                        <option>Forms Ribet</option>
-                                    </select>
-                                    </div>
-                                </div> -->
-                            </form>
-                        </div>
+                <div v-for="form in form_access" :key="form" class="col-md-3 mx-auto card w-32 p-2">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ form.description }}</h5>
+                        <Link :href="`/apps/master/forms/${form.name}/show`" class="btn btn-primary btn-sm mt-4">Go Form</Link>
                     </div>
                 </div>
+                <!-- <div v-for="(form, index) in form_access" :key="index" class="col-md-3" style="width: auto;">
+                    <Link :href="`/apps/roles/${form.id}/show`" class="btn btn-primary position-relative">
+                        {{ form.description }}
+                        <span class="position-absolute top-0 start-100 translate-middle p-2 bg-danger border border-light rounded-circle">
+                            <span class="visually-hidden">New alerts</span>
+                        </span>
+                    </Link>
+                </div> -->
             </div>
         </div>
     </main>
-   
 </template>
 
 <script>
+import LayoutApp from '../../../Layouts/App.vue'
 
-import LayoutApp from '../../../Layouts/App.vue';
+import { Head, Link } from '@inertiajs/inertia-vue3';
+
+import { Inertia } from '@inertiajs/inertia';
 
 export default {
-    
     layout: LayoutApp,
-}
 
+    components: {
+        Link, Head
+    },
+
+    props: {
+        form_access: Array
+    }
+}
 </script>

@@ -22,6 +22,8 @@ class UserController extends Controller
         $users = User::when(request()->q, function($users) {
             $users = $users->where('name', 'like', '%' . request()->q . '%');
         })->with('roles')->latest()->paginate(5);
+
+        // dd($users);
         return Inertia::render('Apps/Users/Index', [
             'users' => $users
         ]);

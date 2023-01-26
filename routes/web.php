@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Apps\Master\FormController;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
 
@@ -28,12 +29,26 @@ Route::prefix('apps')->group(function() {
         //route dashboard
         Route::get('dashboard', \App\Http\Controllers\Apps\DashboardController::class)->name('apps.dashboard');
 
-        Route::resource('/roles', \App\Http\Controllers\Apps\RoleController::class, ['as' => 'apps'])
-            ->middleware('permission:roles.index|roles.create|roles.show|roles.edit|roles.delete');
+        Route::resource('/roles', \App\Http\Controllers\Apps\RoleController::class, ['as' => 'apps']);
+            // ->middleware('permission:roles.index|roles.create|roles.show|roles.edit|roles.delete');
         
         Route::resource('/users', \App\Http\Controllers\Apps\UserController::class, ['as' => 'apps'])
             ->middleware('permission:users.index|users.create|users.edit|roles.delete');
 
-        Route::resource('/forms', \App\Http\Controllers\Apps\FormController::class, ['as' => 'apps']);
+        Route::get('/master/forms', [FormController::class, 'index'])->name('apps.master.forms.index');
+
+        Route::get('/master/forms/create', [FormController::class, 'create'])->name('apps.master.forms.create');
+
+        Route::post('/master/forms/new_form', [FormController::class, 'create_form'])->name('apps.master.forms.new_form');
+
+        Route::get('/master/forms/{form:slug}/show', [FormController::class, 'show'])->name('apps.master.forms.show');
+
+        Route::post('/master/forms/new_data', [FormController::class, 'create_data'])->name('apps.master.forms.new_data');
+
+        Route::post('/master/forms/update_data', [FormController::class, 'update_data'])->name('apps.master.forms.update_data');
+
+        Route::delete('/master/forms/{form:slug}/delete_data/{id}', [FormController::class, 'delete_data']);
+        
+        Route::post('/master/forms/add_column', [FormController::class, 'add_column'])->name('apps.master.forms.add_column');
     });
 });

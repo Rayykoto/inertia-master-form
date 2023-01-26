@@ -11,7 +11,7 @@
                 <div class="row">
                     <p class="text-black-center"> hello </p>
                 </div>
-
+                
             </div>
         </div>
     </main>
@@ -33,6 +33,10 @@
         components: {
             Head,
         },
+
+        props: {
+            form_access: Object
+        }
     }
 </script>
 

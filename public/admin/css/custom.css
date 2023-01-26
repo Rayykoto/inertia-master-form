@@ -218,3 +218,7 @@ body.modal-open .container {
 .border-top-warning {
     border-top: 5px solid #f9b115!important;
 }
+
+.w-32 {
+    width: 32%!important;
+}
