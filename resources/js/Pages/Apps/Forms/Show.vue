@@ -28,10 +28,12 @@
                                 </thead>
                                 <tbody>
                                     <tr v-for="form in forms" :key="form">
-                                        <td v-for="header in headers" :key="header"> {{ form[header.field_name]  }}</td>
-                                            <td class="text-center"  v-if="hasAnyPermission([edit_data]) || hasAnyPermission([delete_data])">
-                                                <button v-if="hasAnyPermission([edit_data])" class="btn btn-success btn-sm me-2" data-bs-toggle="modal" data-bs-target="#editModal" @click="sendInfo(form)"> <i class="fa fa-pencil-alt me-1"></i> Update Data</button>
-                                                <button @click.prevent="destroy(table,form.id)" v-if="hasAnyPermission([delete_data])" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i> DELETE</button>
+                                        <td v-for="header in headers" :key="header"> 
+                                            {{ form[header.field_name]  }}
+                                        </td>
+                                        <td class="text-center"  v-if="hasAnyPermission([edit_data]) || hasAnyPermission([delete_data])">
+                                            <button v-if="hasAnyPermission([edit_data])" class="btn btn-success btn-sm me-2" data-bs-toggle="modal" data-bs-target="#editModal" @click="sendInfo(form)"> <i class="fa fa-pencil-alt me-1"></i> Update Data</button>
+                                            <button @click.prevent="destroy(table,form.id)" v-if="hasAnyPermission([delete_data])" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i> DELETE</button>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -94,13 +96,39 @@
                                             <input class="form-control" name="table" :value="table" type="hidden">
                                             <input class="form-control" name="data_id" :value="selectedUser.id" type="hidden">
                                             <div class="mb-3" v-for="header in headers" :key="header">
-                                                <label class="fw-bold">{{ header.field_name }}</label>
+                                                <!---->
+
                                                 <div v-if="header.input_type === 'Text'">
-                                                    <input class="form-control" :name="header.field_name" type="text" :placeholder="header.field_description">
-                                                </div>
-                                                <div v-else-if="header.input_type === 'Number'">
-                                                    <input class="form-control" :name="header.field_name" type="number" :placeholder="header.field_description">
-                                                </div>
+                                        <label class="fw-bold">{{ header.field_description }}</label>
+                                        <input class="form-control" :name="header.field_name" :value="selectedUser[header.field_name]" type="text" :placeholder="header.field_description" :required="header.required == 'required'">
+                                    </div>
+                                    <div v-else-if="header.input_type === 'Number'">
+                                        <label class="fw-bold">{{ header.field_description }}</label>
+                                        <input class="form-control" :name="header.field_name" :value="selectedUser[header.field_name]" type="number" :placeholder="header.field_description" :required="header.required == 'required'">
+                                    </div>
+                                    <div v-else-if="header.input_type === 'Time'">
+                                        <label class="fw-bold">{{ header.field_description }}</label>
+                                        <input class="form-control" :name="header.field_name" :value="selectedUser[header.field_name]" type="time" :placeholder="header.field_description" :required="header.required == 'required'">
+                                    </div>
+                                    <div v-else-if="header.input_type === 'Date'">
+                                        <label class="fw-bold">{{ header.field_description }}</label>
+                                        <input class="form-control" :name="header.field_name" :value="selectedUser[header.field_name]" type="date" :placeholder="header.field_description" :required="header.required == 'required'">
+                                    </div>
+                                    <div v-else-if="header.input_type === 'File'">
+                                        <label class="fw-bold">{{ header.field_description }}</label>
+                                        <input class="form-control" :name="header.field_name" :value="selectedUser[header.field_name]" type="file" :placeholder="header.field_description" :required="header.required == 'required'">
+                                    </div>
+                                    <div v-else-if="header.input_type === 'Longtext'">
+                                        <label class="fw-bold">{{ header.field_description }}</label>
+                                        <textarea class="form-control" :name="header.field_name" type="number" :placeholder="header.field_description" :required="header.required == 'required'"></textarea>
+                                    </div>
+                                    <div v-else-if="header.input_type === 'Yes/No'">
+                                        <label class="fw-bold">{{ header.field_description }}</label>
+                                        <select class="form-control" :name="header.field_name" :required="header.required == 'required'">
+                                            <option value="1">Yes</option>
+                                            <option value="0">No</option>
+                                        </select>
+                                    </div>
                                                 <!-- <input class="form-control" :name="header.field_name" type="text" :placeholder="header.field_description"> -->
                                             </div>
                                             <div class="modal-footer">

@@ -5,7 +5,7 @@
     <main class="c-main">
         <div class="container-fluid">
             <div class="input-group mb-3">
-                <Link href="/apps/master/forms/create" class="btn btn-primary input-group-text"> <i class="fa fa-plus-circle me-2"></i> NEW</Link>
+                <Link href="/apps/master/forms/create" v-if="hasAnyPermission(['form.create'])" class="btn btn-primary input-group-text"> <i class="fa fa-plus-circle me-2"></i> NEW</Link>
             </div>
             <div class="row">
                 <div v-for="form in form_access" :key="form" class="col-md-3 mx-auto card w-32 p-2">

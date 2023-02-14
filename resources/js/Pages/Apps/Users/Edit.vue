@@ -59,8 +59,8 @@
                                         <label class="fw-bold">Role</label>
                                         <br>
                                         <div class="form-check form-check-inline" v-for="(role, index) in roles" :key="index">
-                                            <input class="form-check-input" type="checkbox" v-model="form.roles" :value="role.name" :id="`check-${role.id}`">
-                                            <label class="form-check-label" :for="`check-${role.id}`">{{ role.name }}</label>
+                                            <input v-if="role.name != 'superadmin'" class="form-check-input" type="checkbox" v-model="form.roles" :value="role.name" :id="`check-${role.id}`">
+                                            <label v-if="role.name != 'superadmin'" class="form-check-label" :for="`check-${role.id}`">{{ role.name }}</label>
                                         </div>
 
                                         <div class="row mt-3">

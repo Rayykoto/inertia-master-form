@@ -16,6 +16,7 @@ class FormController extends Controller
 {
    public function index()
     {
+        $a = array();
         if(auth()){
             $user_id = auth()->user()->id;
         }
@@ -141,7 +142,11 @@ class FormController extends Controller
                 }
 			}
 			$selected = substr($select_field, 0,-1);
-            $form = DB::table($name)->selectRaw($selected)->where('status','1')->get();
+            if(str_contains(strtolower($user->getRoleNames()), 'staff')){
+                $form = DB::table($name)->selectRaw($selected)->where('created_by',$user_id)->where('status','1')->get();
+            } else {
+                $form = DB::table($name)->selectRaw($selected)->where('status','1')->get();
+            }
 		} else {
             $form = DB::table($name)->latest()->get();
         }

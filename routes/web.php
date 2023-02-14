@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Apps\Master\FormController;
+use App\Http\Controllers\Apps\Master\ReportController;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
 
@@ -50,5 +51,13 @@ Route::prefix('apps')->group(function() {
         Route::delete('/master/forms/{form:slug}/delete_data/{id}', [FormController::class, 'delete_data']);
         
         Route::post('/master/forms/add_column', [FormController::class, 'add_column'])->name('apps.master.forms.add_column');
+
+        Route::get('/master/reports ', [ReportController::class, 'index'])->name('apps.master.reports.index');
+
+        Route::get('/master/reports/{form:slug}/show', [ReportController::class, 'show'])->name('apps.master.reports.show');
+
+        Route::get('/master/reports/{form:slug}/filter', [ReportController::class, 'generate_report'])->name('apps.master.reports.filter');
+
+        Route::get('/master/reports/{form:slug}/export', [ReportController::class, 'export'])->name('apps.master.reports.export');
     });
 });
